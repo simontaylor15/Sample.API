@@ -1,3 +1,4 @@
+
 # Sample.API
 Sample API implemented using of ASP Core / .NET Core
 
