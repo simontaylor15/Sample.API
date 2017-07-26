@@ -10,3 +10,7 @@ Example API requests:
 * api/products/1?includeSalesItems=true (to get product model 1 with all of its Products)
 * api/products/1/salesitems (to get all the products for product model 1)
 * api/products/1/salesitems/864 (to get a specific Product for a Product Mode)
+
+# Class Diagram
+
+![Class Diagram](/Docs/Class.png)
