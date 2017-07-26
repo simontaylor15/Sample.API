@@ -1,0 +1,9 @@
+@startumlnamespace Services {
+IProductInfoRepository <|-- ProductInfoRepositoryIProductInfoRepository <|-- ProductDataStoreDBContext <|-- ProductInfoContextProductInfoContext <- ProductInfoRepository'ProductInfoRepository -> ProductInfoContext}
+namespace Entities {Class ProductClass ProductModelProductModel *-- Product}
+namespace Controllers {
+Class ProductModelsContollerClass ProductsController
+}
+Services.IProductInfoRepository -> Entities
+namespace Models {
+Class ProductModelWithoutProductDtoProductModelDto *-- ProductDto}@enduml
