@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Sample.API.Services;
 using Sample.API.Models;
+using AutoMapper;
 
 namespace Sample.API.Controllers
 {
@@ -28,29 +29,9 @@ namespace Sample.API.Controllers
             }
 
             var products = _productInfoRepository.GetProductsForModel(productId);
-            var result = new List<ProductDto>();
-            foreach (var product in products)
-            {
-                result.Add(new ProductDto()
-                {
-                    Id = product.ProductId,
-                    Name = product.Name,
-                    ProductNumber = product.ProductNumber,
-                    Colour = product.Color
-                });
-            }
+            var result = Mapper.Map<IEnumerable<ProductDto>>(products);
 
             return Ok(result);
-
-            //var productModel = ProductsDataStore.Current.ProductModels.FirstOrDefault(pm => pm.Id == productId);
-            //if (productModel == null)
-            //{
-            //    return NotFound();
-            //}
-            //else
-            //{
-            //    return Ok(productModel.Products);
-            //}
         }
 
         [HttpGet("{productId}/saleitems/{saleitemId}")]
@@ -68,13 +49,7 @@ namespace Sample.API.Controllers
                 return NotFound();
             }
 
-            var result = new ProductDto()
-            {
-                Id = product.ProductId,
-                Name = product.Name,
-                ProductNumber = product.ProductNumber,
-                Colour = product.Color
-            };
+            var result = Mapper.Map<ProductDto>(product);
 
             return Ok(result);
         }

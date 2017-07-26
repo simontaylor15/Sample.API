@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Sample.API.Services;
 using Sample.API.Models;
+using AutoMapper;
 
 namespace Sample.API.Controllers
 {
@@ -24,18 +25,9 @@ namespace Sample.API.Controllers
         [HttpGet()]
         public IActionResult GetProducts()
         {
-            //return Ok(ProductsDataStore.Current.ProductModels);
             var productModels = _productInfoRepository.GetProductModels();
-            var results = new List<ProductModelWithoutProductDto>();
-            foreach (var productModelEntity in productModels)
-            {
-                results.Add(new ProductModelWithoutProductDto
-                {
-                    Id = productModelEntity.ProductModelId,
-                    Name = productModelEntity.Name,
-                    CatalogDescription = productModelEntity.CatalogDescription
-                });
-            };
+            var results = Mapper.Map<IEnumerable<ProductModelWithoutProductDto>>(productModels);
+           
             return Ok(results);
         }
 
@@ -50,33 +42,14 @@ namespace Sample.API.Controllers
             }
             if (includeSaleItems)
             {
-                var result = new ProductModelDto()
-                {
-                    Id = productModel.ProductModelId,
-                    Name = productModel.Name,
-                    CatalogDescription = productModel.CatalogDescription,
-                };
-
-                foreach (var product in productModel.Products)
-                {
-                    result.Products.Add(new ProductDto()
-                    {
-                        Id = product.ProductId,
-                        Name = product.Name,
-                        ProductNumber = product.ProductNumber,
-                        Colour = product.Color
-                    });
-                }
+                var result = Mapper.Map<ProductModelDto>(productModel);
+              
                 return Ok(result);
             }
             else
             {
-                var result = new ProductModelWithoutProductDto()
-                {
-                    Id = productModel.ProductModelId,
-                    Name = productModel.Name,
-                    CatalogDescription = productModel.CatalogDescription,
-                };
+                var result = Mapper.Map<ProductModelWithoutProductDto>(productModel);
+             
                 return Ok(result);
             }
         }
