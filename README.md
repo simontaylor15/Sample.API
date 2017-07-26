@@ -1,7 +1,7 @@
 # Sample.API
 Sample API implemented using of ASP Core / .NET Core
 
-Create, Update and Delete have not currently been implemented on this API
+Create, Update and Delete have not currently been implemented
 
 Example API requests:
 
