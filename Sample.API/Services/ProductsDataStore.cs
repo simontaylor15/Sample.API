@@ -11,7 +11,7 @@ namespace Sample.API.Services
     {
         //private static ProductsDataStore ProductStore { get; } = new ProductsDataStore();
 
-        private List<ProductModel> _productModels = null;
+        private static List<ProductModel> _productModels = null;
 
         private List<ProductModel> ProductModels
         {
@@ -46,6 +46,20 @@ namespace Sample.API.Services
         public Product GetProductForModel(int modelId, int productId)
         {
             return GetProductsForModel(modelId).Where(p => p.ProductId == productId).FirstOrDefault();
+        }
+        public void AddProductForModel(int modelId, Product product)
+        {
+            var productModel = GetProductModel(modelId, true);
+            var maxProductId = productModel.Products.Max(p => p.ProductId);
+            product.ProductId = ++maxProductId;
+            product.ProductModelId = modelId;
+            //_productModels.Where(pm => pm.ProductModelId == modelId).FirstOrDefault().Products.Add(product);
+            productModel.Products.Add(product);
+        }
+
+        public bool Save()
+        {
+            return true;
         }
 
         private void InitialiseProductModels()

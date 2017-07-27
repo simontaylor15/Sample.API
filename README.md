@@ -3,7 +3,7 @@ Sample API implemented using of ASP Core / .NET Core
 
 Create, Update and Delete have not currently been implemented
 
-Example API requests:
+## Example API requests:
 
 * api/products (to get all product models)
 * api/products/1 (to get product model 1)

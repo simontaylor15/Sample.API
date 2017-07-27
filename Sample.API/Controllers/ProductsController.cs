@@ -34,7 +34,7 @@ namespace Sample.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{productId}/saleitems/{saleitemId}")]
+        [HttpGet("{productId}/saleitems/{saleitemId}", Name = "GetProduct")]
         public IActionResult GetProduct(int productId, int saleitemId)
         {
             //productID is actually the product model id, and salesitemId is the product id
@@ -52,6 +52,31 @@ namespace Sample.API.Controllers
             var result = Mapper.Map<ProductDto>(product);
 
             return Ok(result);
+        }
+
+        [HttpPost("{productId}/saleitem")]
+        public IActionResult CreateProduct(int productId, [FromBody] ProductForCreationDto saleItem)
+        {
+            //productID is actually the product model id, and saleItem is the product
+            if (saleItem == null)
+            {
+                return BadRequest();
+            }
+
+            //productID is actually the product model id, and salesitem is the product id
+            if (!_productInfoRepository.ProductModelExists(productId))
+            {
+                return NotFound();
+            }
+
+            var finalProduct = Mapper.Map<Entities.Product>(saleItem);
+            _productInfoRepository.AddProductForModel(productId, finalProduct);
+            if (!_productInfoRepository.Save())
+            {
+                return StatusCode(500, "A problem occured while handling your request.");
+            }
+            var productToReturn = Mapper.Map<Models.ProductDto>(finalProduct);
+            return CreatedAtRoute("GetProduct", new { productId = productId, saleItemId = productToReturn.Id }, productToReturn);
         }
     }
 }

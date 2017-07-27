@@ -10,7 +10,7 @@ namespace Sample.API.Entities
     public class Product
     {
         [Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProductId { get; set; }
         public string Name { get; set; }
         public string ProductNumber { get; set; }

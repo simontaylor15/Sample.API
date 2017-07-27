@@ -49,5 +49,17 @@ namespace Sample.API.Services
         {
             return _context.Products.Where(p => p.ProductId == productId && p.ProductModelId == modelId).FirstOrDefault();
         }
+
+        public void AddProductForModel(int modelId, Product product)
+        {
+            var productModel = GetProductModel(modelId, false);
+            //This will currently raise an exception because my entity classes don't include StandardCost, ListPrice or SellStartDate which
+            //are mandatory (cannot be null) in the Product table. Use the ProductDataStore if you want to see the Create working!
+            productModel.Products.Add(product);
+        }
+        public bool Save()
+        {
+            return (_context.SaveChanges() >= 0);
+        }
     }
 }

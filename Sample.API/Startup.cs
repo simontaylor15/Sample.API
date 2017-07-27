@@ -62,6 +62,9 @@ namespace Sample.API
                                        opts => opts.MapFrom(src => src.Color))
                             .ForMember(dest => dest.Id, 
                                        opts => opts.MapFrom(src => src.ProductId));
+                cfg.CreateMap<Models.ProductForCreationDto, Entities.Product>()
+                             .ForMember(dest => dest.Color,
+                                       opts => opts.MapFrom(src => src.Colour));
             });
 
             app.UseMvc();

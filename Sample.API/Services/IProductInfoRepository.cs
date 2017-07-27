@@ -13,6 +13,7 @@ namespace Sample.API.Services
         ProductModel GetProductModel(int modelId, bool includeProducts);
         IEnumerable<Product> GetProductsForModel(int modelId);
         Product GetProductForModel(int modelId, int productId);
-
+        void AddProductForModel(int modelId, Product product);
+        bool Save();
     }
 }
