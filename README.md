@@ -1,5 +1,5 @@
 # Sample.API
-Sample RESt based API implemented using of ASP Core / .NET Core
+Sample REST based API implemented using of ASP Core / .NET Core
 
 Create, Update and Delete have not currently been implemented
 
