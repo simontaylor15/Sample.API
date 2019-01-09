@@ -32,9 +32,11 @@ namespace Sample.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddDbContext<ProductInfoContext>(options => options.UseSqlServer(Startup.Configuration["connectionStrings:DefaultConnection"]));
-            //services.AddScoped<IProductInfoRepository, ProductsDataStore>();
-            services.AddScoped<IProductInfoRepository, ProductInfoRepository>();
+            //Use the following two lines to use the DB...
+            //services.AddDbContext<ProductInfoContext>(options => options.UseSqlServer(Startup.Configuration["connectionStrings:DefaultConnection"]));
+            //services.AddScoped<IProductInfoRepository, ProductInfoRepository>();
+            //Use the following two lines to not use the DB... (comment out the two lines above).
+            services.AddScoped<IProductInfoRepository, ProductsDataStore>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
